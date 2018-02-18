@@ -11,7 +11,7 @@ Laravel 5.6 Localization package with language chooser
 
 ## Demo
 
-You can see working [demo](https://www.localization.hostato.com)
+You can see working [demo](https://www.emailconfirm.hostato.com)
 
 ## Install
 
@@ -64,7 +64,7 @@ $ php artisan migrate
 Run the Artisan Seeding command
 
 ``` bash
-$ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSeeder
+$ php artisan db:seed --class=LanguagesTableSeeder
 ```
 
 ### Artisan Seed Error
