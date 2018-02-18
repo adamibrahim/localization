@@ -64,7 +64,7 @@ $ php artisan migrate
 Run the Artisan Seeding command
 
 ``` bash
-$ php artisan db:seed --class=LanguagesTableSeeder
+$ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSeeder
 ```
 
 ### Artisan Seed Error
