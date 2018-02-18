@@ -1,0 +1,49 @@
+{
+    "name": "adamibrahim/localization",
+    "type": "library",
+    "description": "Laravel 5.6 Localization package with language chooser",
+    "keywords": [
+        "Laravel 5.6",
+        "Localization",
+        "package",
+        "language chooser"
+    ],
+    "homepage": "https://github.com/adamibrahim/localization",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Ibrahim",
+            "email": "adam@hostato.com",
+            "homepage": "https://www.hostato.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.1",
+        "php" : "~5.6|~7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : ">=5.4.3",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Adam\\Localization\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Adam\\Localization\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Adam\\Localization\\LocalizationServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
