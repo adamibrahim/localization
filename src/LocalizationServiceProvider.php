@@ -19,7 +19,7 @@ class LocalizationServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         $this->publishes([
-            __DIR__.'/Assets' => asset('img'),
+            __DIR__.'/Assets' => asset(),
             __DIR__.'/resources' => resource_path('views'),
 
         ]);
