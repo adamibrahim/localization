@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ session()->get('locale')}}">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,30 +74,51 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            {{ config('app.name', 'Laravel') }}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            @if (count($languages) > 1)
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ asset('img/flags/'.$lang->flag) }}"> {{ $lang->abbr }}<span class="caret"></span>
-                    </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        @foreach($languages as $language)
-                            <a href="{{ route('language.change', $language->abbr) }}" class="dropdown-item">
-                                <img src="{{ asset('img/flags/'.$language->flag) }}"> {{$language->name}}
-                            </a>
-                        @endforeach
-                    </div>
-                </li>
-            @endif
-        </ul>
+            </ul>
+
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+                @if (Route::has('login'))
+                    @guest
+                    <li><a class="nav-link" href="{{ route('login') }}">{{ trans('auth.login') }}</a></li>
+                    <li><a class="nav-link" href="{{ route('register') }}">{{ trans('auth.register') }}</a></li>
+                @else
+                    <li class="nav-item dropdown">
+                        <a href="{{ url('/home') }}">{{ trans('auth.home') }}</a>
+                    </li>
+                    @endguest
+                @endif
+                @if (isset($languages) && count($languages) > 1)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ asset('img/flags/'.$lang->flag) }}"> {{ $lang->abbr }}<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach($languages as $language)
+                                <a href="{{ route('language.change', $language->abbr) }}" class="dropdown-item">
+                                    <img src="{{ asset('img/flags/'.$language->flag) }}"> {{$language->name}}
+                                </a>
+                            @endforeach
+                        </div>
+                    </li>
+                @endif
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="flex-center position-ref full-height">
