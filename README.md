@@ -11,7 +11,7 @@ Laravel 5.6 Localization package with language chooser
 
 ## Demo
 
-You can see working [demo](https://www.emailconfirm.hostato.com)
+You can see working [demo](https://www.admin.hostato.com)
 
 ## Install
 
