@@ -1,6 +1,6 @@
 <?php
 
-namespace database\seeds;
+namespace Adam\Localization\database\seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

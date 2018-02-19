@@ -21,7 +21,6 @@ class LocalizationServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Assets' => public_path(),
             __DIR__.'/resources' => resource_path('views'),
-            __DIR__.'/database/seeds' => database_path('seeds'),
 
         ]);
 
