@@ -20,16 +20,13 @@ class LocalizationServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/Assets' => public_path(),
-            __DIR__.'/resources' => resource_path('views'),
-
         ]);
 
         view()->composer('*', function ($view) {
-            if (!session()->has('locale')) {
-                session()->put('locale', Language::defaultLanguage()->abbr);
-                return redirect()->back();
+            $this->app->setLocale(Language::defaultLanguage()->abbr);
+            if (session()->has('locale')) {
+                $this->app->setLocale(session()->get('locale'));
             }
-            $this->app->setLocale(session()->get('locale'));
             $view->with('lang', Language::lang($this->app->getLocale()));
         });
         view()->share('languages', Language::languages());
