@@ -23,10 +23,13 @@ class LocalizationServiceProvider extends ServiceProvider
         ]);
 
         view()->composer('*', function ($view) {
+
             $this->app->setLocale(Language::defaultLanguage()->abbr);
+
             if (session()->has('locale')) {
                 $this->app->setLocale(session()->get('locale'));
             }
+
             $view->with('lang', Language::lang($this->app->getLocale()));
         });
         view()->share('languages', Language::languages());

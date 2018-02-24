@@ -68,7 +68,8 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
 ```
 
 ### Artisan Seed Error
-If you receive this Error: ######Class Adam\Localization\database\seeds\LanguagesTableSeeder does not exist
+If you receive this Error: 
+###### Class Adam\Localization\database\seeds\LanguagesTableSeeder does not exist
 Then you may need to dump-autoload by running this command 
 ``` bash
 $ composer dump-autoload
@@ -81,8 +82,7 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
 ```
 ### Add the language change buttons to your blade template
 ``` bash
-@if ($languages)
- if (count($languages) > 1)
+@if (($languages)->count() > 1)
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ asset('img/flags/'.$lang->flag) }}"> {{ $lang->abbr }}<span class="caret"></span>
@@ -96,7 +96,6 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
             @endforeach
         </div>
     </li>
- @endif
 @endif
 ```
 ## Contributing

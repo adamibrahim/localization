@@ -8,17 +8,11 @@ class Language extends Model
 {
 
     /*
-     * Creating temporary language
+     * Creating temporary language collection
      */
     public static function tmpLanguage()
     {
-        return [
-                'id' => '1',
-                'name' => 'English',
-                'flag' => 'en.svg',
-                'abbr' => 'en',
-                'native' => 'English',
-           ];
+        return collect([ ['name' => 'English', 'flag' => 'en.svg', 'abbr' => 'en']]);
     }
 
     /**
@@ -29,11 +23,11 @@ class Language extends Model
      */
     public static function lang($abbr)
     {
-
-        if (!\Schema::hasTable('languages')) {
-            return (object) self::tmpLanguage();
+        if (self::notLanguage()){
+            return (object) self::tmpLanguage()->first();
         }
         return self::where('abbr', $abbr)->first();
+
     }
 
     /*
@@ -41,8 +35,8 @@ class Language extends Model
      */
     public static function defaultLanguage()
     {
-        if (!\Schema::hasTable('languages')) {
-            return (object) self::tmpLanguage();
+        if (self::notLanguage()){
+            return (object) self::tmpLanguage()->first();
         }
         return self::where('default','>', 0)->first();
     }
@@ -54,7 +48,7 @@ class Language extends Model
      */
     public static function languages()
     {
-        if (!\Schema::hasTable('languages')) {
+        if (self::notLanguage()){
             return (object) self::tmpLanguage();
         }
         return self::where('active', true)->get();
@@ -65,11 +59,21 @@ class Language extends Model
      */
     public static function backLanguages()
     {
-        if (!\Schema::hasTable('languages')) {
+        if (self::notLanguage()){
             return (object) self::tmpLanguage();
         }
         return self::where('active_back', true)->get();
 
+    }
+
+    /*
+     * Getting tmp language
+     */
+    public static function notLanguage()
+    {
+        if (!\Schema::hasTable('languages') || !self::all() ) {
+            return true;
+        }
     }
 
     /**
