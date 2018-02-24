@@ -8,7 +8,7 @@ class Language extends Model
 {
 
     /*
-     * Creating temporary language collection
+     * Temporary language collection
      */
     public static function tmpLanguage()
     {
@@ -16,7 +16,7 @@ class Language extends Model
     }
 
     /**
-     * Set Lang
+     * The used language
      *
      * @param $abbr
      * @return object
@@ -31,7 +31,7 @@ class Language extends Model
     }
 
     /*
-     * Getting default language
+     * Default language
      */
     public static function defaultLanguage()
     {
@@ -44,7 +44,7 @@ class Language extends Model
 
 
     /*
-     * Getting list of active front languages
+     * list of active languages
      */
     public static function languages()
     {
@@ -55,7 +55,7 @@ class Language extends Model
     }
 
     /*
-     * list of active back languages
+     * list of active CMS/back languages
      */
     public static function backLanguages()
     {
@@ -67,7 +67,7 @@ class Language extends Model
     }
 
     /*
-     * Getting tmp language
+     * Check if language table exist and it has a record/s
      */
     public static function notLanguage()
     {
@@ -77,7 +77,7 @@ class Language extends Model
     }
 
     /**
-     * list of active front languages
+     * check if this language is active
      *
      * @param $abbr
      * @return bool
@@ -88,12 +88,12 @@ class Language extends Model
     }
 
     /**
-     * Getting list of active back languages
+     * check if this language for CMS/back is active
      *
      * @param $abbr
      * @return bool
      */
-    public function backIsActive()
+    public function isActiveBack()
     {
         return $this->active_back;
     }

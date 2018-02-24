@@ -7,7 +7,11 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Laravel 5.6 Localization package with language chooser
+Laravel 5.6 Localization package with
+- Session Language chooser
+- Different language sessions for website and CMS / back
+- List of languages stored at Database table languages 
+- At table languages you can set boolean values for [active, default]  
 
 ## Demo
 
