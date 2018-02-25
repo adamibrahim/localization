@@ -95,7 +95,7 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             @foreach($languages as $language)
                 <a href="{{ route('language.change', $language->abbr) }}" class="dropdown-item">
-                    <img src="{{ asset('img/flags/'.$language->flag) }}"> {{$language->name}}
+                    <img src="{{ asset('img/flags/'.$language->flag) }}"> {{$language->native}}
                 </a>
             @endforeach
         </div>
