@@ -24,7 +24,7 @@ class Language extends Model
     public static function lang($abbr)
     {
         if (self::notLanguage()){
-            return (object) self::tmpLanguage()->first();
+            return self::tmpLanguage()->first();
         }
         return self::where('abbr', $abbr)->first();
 
@@ -36,7 +36,7 @@ class Language extends Model
     public static function defaultLanguage()
     {
         if (self::notLanguage()){
-            return (object) self::tmpLanguage()->first();
+            return self::tmpLanguage()->first();
         }
         return self::where('default','>', 0)->first();
     }
@@ -49,7 +49,7 @@ class Language extends Model
     public static function languages()
     {
         if (self::notLanguage()){
-            return (object) self::tmpLanguage();
+            return self::tmpLanguage();
         }
         return self::where('active', true)->get();
     }
@@ -60,7 +60,7 @@ class Language extends Model
     public static function backLanguages()
     {
         if (self::notLanguage()){
-            return (object) self::tmpLanguage();
+            return self::tmpLanguage();
         }
         return self::where('active_back', true)->get();
 
