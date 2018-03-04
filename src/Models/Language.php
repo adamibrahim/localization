@@ -12,7 +12,7 @@ class Language extends Model
      */
     public static function tmpLanguage()
     {
-        return collect([ ['name' => 'English', 'flag' => 'en.svg', 'abbr' => 'en']]);
+        return collect([ ['native' => 'English', 'name' => 'English', 'flag' => 'en.svg', 'abbr' => 'en']]);
     }
 
     /**
@@ -38,9 +38,8 @@ class Language extends Model
         if (self::notLanguage()){
             return self::tmpLanguage()->first();
         }
-        return self::where('default','>', 0)->first();
+        return self::where('default', true)->first();
     }
-
 
 
     /*
@@ -52,6 +51,17 @@ class Language extends Model
             return self::tmpLanguage();
         }
         return self::where('active', true)->get();
+    }
+
+    /*
+     * Default language
+     */
+    public static function defaultBackLanguage()
+    {
+        if (self::notLanguage()){
+            return self::tmpLanguage()->first();
+        }
+        return self::where('default_back', true)->first();
     }
 
     /*

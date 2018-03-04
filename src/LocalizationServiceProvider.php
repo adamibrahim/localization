@@ -24,14 +24,29 @@ class LocalizationServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view) {
 
-            $this->app->setLocale(Language::defaultLanguage()['abbr']);
+            session()->has('locale')
+                ? $lang = Language::lang(session()->get('locale'))
+                : $lang = Language::defaultLanguage();
 
-            if (session()->has('locale')) {
-                $this->app->setLocale(session()->get('locale'));
+            session()->has('locale:back')
+                ? $lang_back = Language::lang(session()->get('locale:back'))
+                : $lang_back = Language::defaultBackLanguage();
+
+            session()->has('locale:content')
+                ? $lang_content = Language::lang(session()->get('locale:content'))
+                : $lang_content = Language::defaultLanguage();
+
+            $this->app->setLocale($lang['abbr']);
+
+            if (\Route::current()->getPrefix() === 'admin') {
+                $this->app->setLocale($lang_back['abbr']);
             }
 
-            $view->with('lang', Language::lang($this->app->getLocale()));
+            $view->with('lang', $lang);
+            $view->with('lang_back', $lang_back);
+            $view->with('lang_content', $lang_content);
         });
+
         view()->share('languages', Language::languages());
         view()->share('languages_back', Language::backLanguages());
 
