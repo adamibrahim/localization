@@ -84,15 +84,17 @@ Then run the seeding command once again
 ``` bash
 $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSeeder
 ```
-### Add the language change buttons to your blade template
+
+### Add the language change buttons to your website page/s
 ``` bash
 @if (($languages)->count() > 1)
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="{{ asset('img/flags/'.$lang->flag) }}"> {{ $lang->abbr }}<span class="caret"></span>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ asset('img/flags/'.$lang['flag']) }}"> {{ $lang['abbr'] }}<span class="caret"></span>
         </a>
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             @foreach($languages as $language)
                 <a href="{{ route('language.change', $language->abbr) }}" class="dropdown-item">
                     <img src="{{ asset('img/flags/'.$language->flag) }}"> {{$language->native}}
@@ -102,6 +104,30 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
     </li>
 @endif
 ```
+
+
+
+### Optional you can add different language session if needed for example admin control panel 
+``` bash
+@if (($languages_back)->count() > 1)
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ asset('img/flags/'.$lang_back['flag']) }}"> {{ $lang_back['abbr'] }}<span class="caret"></span>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            @foreach($languages_back as $language)
+                <a href="{{ route('admin.back.language', $language->abbr) }}" class="dropdown-item">
+                    <img src="{{ asset('img/flags/'.$language->flag) }}"> {{$language->native}}
+                </a>
+            @endforeach
+        </div>
+    </li>
+@endif
+```
+## Contributing
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
