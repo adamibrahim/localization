@@ -8,7 +8,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 Laravel 5.6 Localization package with
-- Session Language chooser
+- Language chooser
 - Different language sessions for website and CMS / back
 - List of languages stored at Database table languages 
 - At table languages you can set boolean values for [active, default]  
@@ -27,7 +27,7 @@ You can see working [demo](http://admin.hostato.com)
 $ composer require adamibrahim/localization
 ```
 
-##### If you installing at laravel 5.5 or higher then you may go directly to Publish other wise you will need to edit composer.json and register the Service Provider
+##### If you installing at laravel 5.5 or higher then you may go directly to Publish other wise you will need to edit composer.json, register the Service Provider and middleware
 
 ### composer.json
 
@@ -47,12 +47,21 @@ At file config/app.php register service provider under * Package Service Provide
 Adam\Localization\LocalizationServiceProvider::class,
 ```
 
-### Publishing
+##### Middleware 
 
-run this command
+if you are using Laravel version lower than 5.5 then you need to register the lang middleware at your App\Http\Kernel.php
+ - At protected $routeMiddleware = [ ] array add the below code 
 
 ``` bash
-$ php artisan vendor:publish --provider="Adam\Localization\LocalizationServiceProvider" --force
+'lang' => \Adam\Localization\Middleware\Localization::class,
+```
+
+### Publishing
+
+Optional publishing flags folder with flags svg images / and config file
+
+``` bash
+$ php artisan vendor:publish --tag=Localization --force
 ```
 
 
@@ -85,7 +94,16 @@ Then run the seeding command once again
 $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSeeder
 ```
 
-### Add the language change buttons to your website page/s
+### Usage
+
+You need to add 'lang' middleware to all your routes 
+
+``` bash
+->middleware('lang')
+``` 
+
+Add the Bootstrap language change buttons to your website page/s
+
 ``` bash
 @if (($languages)->count() > 1)
     <li class="nav-item dropdown">
@@ -105,9 +123,8 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
 @endif
 ```
 
+Optional you can add different language session if needed for example admin control panel
 
-
-### Optional you can add different language session if needed for example admin control panel 
 ``` bash
 @if (($languages_back)->count() > 1)
     <li class="nav-item dropdown">
@@ -126,6 +143,10 @@ $ php artisan db:seed --class=Adam\Localization\database\seeds\LanguagesTableSee
     </li>
 @endif
 ```
+Optional The lang_back session set the app locale if the rote prefix is 'admin'
+if you wish to change the route prefix simple modify prefix at the config file config\localization.php
+
+
 ## Contributing
 
 ## Contributing

@@ -13,34 +13,30 @@ class LocalizationServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(\Illuminate\Routing\Router $router)
     {
         $this->loadRoutesFrom( __DIR__.'/routes/localization.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $router->aliasMiddleware('lang', \Adam\Localization\Middleware\Localization::class);
 
         $this->publishes([
-            __DIR__.'/Assets' => public_path(),
-        ]);
+            __DIR__.'/assets' => public_path(),
+            __DIR__.'/config' => config_path(),
+        ], 'Localization');
 
         view()->composer('*', function ($view) {
 
             session()->has('locale')
-                ? $lang = Language::lang(session()->get('locale'))
+                ? $lang = Language::lang( \App::getLocale())
                 : $lang = Language::defaultLanguage();
 
             session()->has('locale:back')
-                ? $lang_back = Language::lang(session()->get('locale:back'))
+                ? $lang_back = Language::lang(\App::getLocale())
                 : $lang_back = Language::defaultBackLanguage();
 
             session()->has('locale:content')
                 ? $lang_content = Language::lang(session()->get('locale:content'))
                 : $lang_content = Language::defaultLanguage();
-
-            $this->app->setLocale($lang['abbr']);
-
-            if (\Route::current()->getPrefix() === 'admin') {
-                $this->app->setLocale($lang_back['abbr']);
-            }
 
             $view->with('lang', $lang);
             $view->with('lang_back', $lang_back);
@@ -59,7 +55,7 @@ class LocalizationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // register
+        $this->mergeConfigFrom(__DIR__.'/config/localization.php', 'localization');
     }
 
 }
